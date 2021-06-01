@@ -84,17 +84,11 @@ def getCowinData(STATE, DISTRICT, REQUEST_DATE, VACCINE):
     # returning the string containing all the vaccine availability information.
     return RESULTS
 
-# set the date.
-#day = "01"
-#mon = "06"
-#year = "2021"
-#date = f"{day}-{mon}-{year}"
-
 # get parameters.
 state = input("\n\nEnter State: ") # eg. Maharashtra
 district = input("\nEnter District: ") # eg. Pune
 vaccine = input("\nEnter Vaccine name: ") # eg. Covishield or Covaxin
-date = input("\nEnter search date (DD-MM-YYYY): ") # the date for when user wants to check for vaccine availability
+date = input("\nCheck for Date (DD-MM-YYYY): ") # the date for when user wants to check for vaccine availability
 
 # getting the vaccine availability results.
 vax_info = getCowinData(state, district, date, vaccine)

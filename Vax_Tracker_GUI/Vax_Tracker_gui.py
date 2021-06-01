@@ -1,29 +1,36 @@
 from tkinter import *
 from tkinter import ttk
 import requests
+import pathlib
 
 root = Tk()
-root.geometry("1300x750")
-root.resizable(0,0)
+root.geometry("1300x750") # set window dimensions
+root.resizable(0,0) # disable window resizing
 
 # Initialization
 root.title("CoWin Vaccine Tracker")
+parent_path = pathlib.Path(__file__).parent.absolute() # getting parent directory path
 
-# custom settings
-heading_font = ('Courier New', 25)
+# custom font settings
+heading_font = ('Courier New', 25) # (font_face, font_size)
 output_font = ('Courier New', 18)
 
+# label options dictionary
 label_options = {"font":('Courier New', 20), 
                 "width":25,
-                "height":2,
-                "justify":"center", 
+                "height":2, 
                 "borderwidth":3}
-label_pack_options = {"padx":5, "pady":(10,0), "anchor":W}
 
+# label packing options dictionary
+label_pack_options = {"padx":5, "pady":(10,0)}
+
+# entry options dictionary
 entry_options = {"font":('Courier New', 20), 
                 "width":25, 
                 "justify":"center", 
                 "borderwidth":3}
+
+# entry packing options dictionary
 entry_pack_options = {"padx":20, "pady":(0,30)}
 
 # Packing Heading
@@ -168,17 +175,26 @@ def displayResults():
     result.pack()
     scroll_bar.config(command = result.yview)
 
-buttonStyle = ttk.Style(input_frame)
-buttonStyle.configure('TButton', 
-                font = ('Courier New', 20, 'bold'),
-                height = 3,
-                background = '#29F6AD',
-                foreground = '#FFFFFF')
+# try to use the button image as the button face, if this failed: create default button 
+try:
+    # getting the button image file path
+    button_img_path = str(parent_path.joinpath("ActionButton1.png"))
+    action_button_img = PhotoImage(file = button_img_path)
+    action_button = Button(input_frame, 
+                            command = displayResults, 
+                            image = action_button_img)
 
-action_button = ttk.Button(input_frame, text="Get Vaccine Information",
-                        style = buttonStyle, 
-                        width = 29)
-action_button.pack(padx=20, pady=20, side=BOTTOM)
+    action_button.pack(padx=20, pady=30, side=BOTTOM)
+
+except:
+    action_button = Button(input_frame, text="Get Vaccine Information",
+                            font = ('Courier New', 20),
+                            height = 3,
+                            highlightbackground = '#24C289',
+                            foreground = '#313131',
+                            width = 29)
+
+    action_button.pack(padx=20, pady=30, side=BOTTOM)
 
 
 #Calling Main()  

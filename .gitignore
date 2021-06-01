@@ -1,2 +1,4 @@
-
+# files to ignore when pushing to github
 tempCodeRunnerFile.py
+test.py
+.DS_Store

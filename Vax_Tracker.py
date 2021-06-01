@@ -1,9 +1,11 @@
 import requests
 
 def getCowinData(STATE, DISTRICT, REQUEST_DATE, VACCINE):
+    # variables to store the CoWin API assigned State ID and District ID.
     STATE_ID = None
     DISTRICT_ID = None
 
+    # will store the vaccine availability search results.
     RESULTS = ""
 
     HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36", 
@@ -82,17 +84,18 @@ def getCowinData(STATE, DISTRICT, REQUEST_DATE, VACCINE):
     # returning the string containing all the vaccine availability information.
     return RESULTS
 
-
+# set the date.
 day = "31"
 mon = "05"
 year = "2021"
 date = f"{day}-{mon}-{year}"
 
+# set other parameters.
 vaccine = "Covishield"
-state = "kerala"
-district = "ernakulam"
+state = "Maharashtra"
+district = "Pune"
 
-
+# getting the vaccine availability results.
 vax_info = getCowinData(state, district, date, vaccine)
 if (vax_info == ""):
     print(f"No Vaccine Information avaiable for {district} on {date}")

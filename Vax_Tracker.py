@@ -12,7 +12,7 @@ def getCowinData(STATE, DISTRICT, REQUEST_DATE, VACCINE):
                         "accept": "application/json", "Accept-Language": "en_EN"}
 
 
-    # get the state_id for STATE_NAME.
+    # get the state_id for STATE.
     response = requests.get("https://cdn-api.co-vin.in/api/v2/admin/location/states", headers=HEADERS)
 
     # status codes greater than 200 indicate a failed API request.
@@ -28,13 +28,13 @@ def getCowinData(STATE, DISTRICT, REQUEST_DATE, VACCINE):
             STATE_ID = state["state_id"]
             break
     
-    # if STATE_NAME did not match with any of the states in the list.
+    # if STATE does not match any of the states in the list.
     if (STATE_ID == None):
         raise Exception(f"State {STATE} not found.")
 
     #------------------------------------------------------------------------------------------------------------------
 
-    # get the district_id for DISTRICT_NAME.
+    # get the district_id for DISTRICT.
     response = requests.get(f"https://cdn-api.co-vin.in/api/v2/admin/location/districts/{STATE_ID}", headers=HEADERS)
 
     # status codes greater than 200 indicate a failed API request.
@@ -50,7 +50,7 @@ def getCowinData(STATE, DISTRICT, REQUEST_DATE, VACCINE):
             DISTRICT_ID = district["district_id"]
             break
     
-    # if STATE_ID did not match with any of the districts in the list
+    # if DISTRICT does not match any of the districts in the list
     if (DISTRICT_ID == None):
         raise Exception(f"No Vaccine information for District {DISTRICT}.")
 
@@ -93,7 +93,7 @@ date = input("\nCheck for Date (DD-MM-YYYY): ") # the date for when user wants t
 # getting the vaccine availability results.
 vax_info = getCowinData(state, district, date, vaccine)
 if (vax_info == ""):
-    print(f"No Vaccine Information avaiable for {district} on {date}")
+    print(f"No Vaccine Information available for {district} on {date}")
 else:
     print(f"Vaccine Information for Date: {date}")
     print(vax_info)
